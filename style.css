@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+body {
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+/* Background section */
+.toDoSection {
+  background-image: url("./assets/bg-image.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 35px;
+  min-height: 95vh;
+}
+
+.todo-box h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+/* Container */
+.todo-box {
+  width: 50%;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  border: 5px double #eee;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Input section */
+.input-section {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.addButton {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.addButton:hover{
+    background-color: #baffff;
+    transform: scale(1.025);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1.03); }
+}
+
+
+/* Task list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  padding: 12px;
+}
+
+/* Task row */
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.task-row:hover{
+    background-color: #baffff;
+    transform: scale(1.025);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1.03); }
+}
+
+.task-sno {
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Task topic */
+.task-topic {
+  flex: 1;
+  text-align: left;
+}
+
+/* Action buttons */
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Common icon buttons */
+.tick-btn,
+.x-btn,
+.trash-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a1a1a1;
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Active states */
+.tick-active {
+  background: #00b62b !important;
+  color: white !important;
+}
+
+.x-active {
+  background: #b70012 !important;
+  color: white !important;
+}
