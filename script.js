@@ -1,102 +1,175 @@
-document.addEventListener("DOMContentLoaded", loadTasks);
+// Run everything when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadTasks();
+  updateSaveButtonUI();
+});
 
-/* LocalStorage helpers */
+/* --------------------------
+   Get tasks from storage
+---------------------------*/
 function getTasks() {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
+  return JSON.parse(localStorage.getItem("tasks")) || [];
 }
 
+/* --------------------------
+   Save tasks to storage
+---------------------------*/
 function saveTasks(tasks) {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-/* Add Task */
+/* --------------------------
+   Add new task
+---------------------------*/
 function addTask() {
+  const input = document.getElementById("taskInput");
+  const taskText = input.value.trim();
 
-    const input = document.getElementById("taskInput");
-    const taskText = input.value.trim();
+  // prevent empty task
+  if (taskText === "") {
+    alert("Enter task");
+    return;
+  }
 
-    if (taskText === "") {
-        alert("Enter task");
-        return;
-    }
+  const tasks = getTasks();
 
-    const tasks = getTasks();
+  tasks.push({
+    text: taskText,
+    status: ""
+  });
 
-    tasks.push({
-        text: taskText,
-        status: ""
-    });
+  saveTasks(tasks);
 
-    saveTasks(tasks);
-
-    input.value = "";
-    loadTasks();
+  input.value = "";
+  loadTasks();
 }
 
-/* Load Tasks */
+/* --------------------------
+   Show all tasks
+---------------------------*/
 function loadTasks() {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
 
-    const taskList = document.getElementById("taskList");
-    taskList.innerHTML = "";
+  // load saved list if exists, else normal tasks
+  const tasks =
+    JSON.parse(localStorage.getItem("savedTodoList")) || getTasks();
 
-    const tasks = getTasks();
+  tasks.forEach((task, index) => {
+    const li = document.createElement("li");
 
-    tasks.forEach((task, index) => {
+    li.innerHTML = `
+      <div class="task-row">
 
-        const li = document.createElement("li");
+        <span class="task-sno">${index + 1}.</span>
 
-        li.innerHTML = `
-        <div class="task-row">
+        <span class="task-topic">${task.text}</span>
 
-            <span class="task-sno">${index + 1}.</span>
+        <div class="task-actions">
 
-            <span class="task-topic">${task.text}</span>
+          <div class="tick-btn ${
+            task.status === "tick" ? "tick-active" : ""
+          }" onclick="updateStatus(${index}, 'tick')">
+            <i class="fa-solid fa-check"></i>
+          </div>
 
-            <div class="task-actions">
+          <div class="x-btn ${
+            task.status === "x" ? "x-active" : ""
+          }" onclick="updateStatus(${index}, 'x')">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
 
-                <div class="tick-btn ${task.status === 'tick' ? 'tick-active' : ''}"
-                    onclick="updateStatus(${index}, 'tick')">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-                <div class="x-btn ${task.status === 'x' ? 'x-active' : ''}"
-                    onclick="updateStatus(${index}, 'x')">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-
-                <div class="trash-btn" onclick="deleteTask(${index})">
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-
-            </div>
+          <div class="trash-btn" onclick="deleteTask(${index})">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
 
         </div>
-        `;
 
-        taskList.appendChild(li);
-    });
+      </div>
+    `;
+
+    taskList.appendChild(li);
+  });
 }
 
-/* Update Status */
+/* --------------------------
+   Update task status
+---------------------------*/
 function updateStatus(index, status) {
+  const tasks =
+    JSON.parse(localStorage.getItem("savedTodoList")) || getTasks();
 
-    const tasks = getTasks();
+  tasks[index].status = status;
 
-    tasks[index].status = status;
+  saveTasks(tasks);
 
-    saveTasks(tasks);
+  if (localStorage.getItem("savedTodoList")) {
+    localStorage.setItem("savedTodoList", JSON.stringify(tasks));
+  }
 
-    loadTasks();
+  loadTasks();
 }
 
-/* Delete Task */
+/* --------------------------
+   Delete single task
+---------------------------*/
 function deleteTask(index) {
+  const tasks =
+    JSON.parse(localStorage.getItem("savedTodoList")) || getTasks();
 
-    const tasks = getTasks();
+  tasks.splice(index, 1);
 
-    tasks.splice(index, 1);
+  saveTasks(tasks);
 
-    saveTasks(tasks);
+  if (localStorage.getItem("savedTodoList")) {
+    localStorage.setItem("savedTodoList", JSON.stringify(tasks));
+  }
 
-    loadTasks();
+  loadTasks();
+}
+
+/* --------------------------
+   Save full list
+---------------------------*/
+function saveList() {
+  const tasks = getTasks();
+
+  localStorage.setItem("savedTodoList", JSON.stringify(tasks));
+
+  // mark as saved
+  localStorage.setItem("isListSaved", "true");
+
+  updateSaveButtonUI();
+
+  alert("List saved successfully");
+}
+
+/* --------------------------
+   Update Save button UI
+---------------------------*/
+function updateSaveButtonUI() {
+  const saveBtn = document.getElementById("saveBtn");
+  const isSaved = localStorage.getItem("isListSaved");
+
+  if (isSaved === "true") {
+    saveBtn.innerText = "List Saved";
+    saveBtn.classList.add("saved-state");
+  } else {
+    saveBtn.innerText = "Save List";
+    saveBtn.classList.remove("saved-state");
+  }
+}
+
+/* --------------------------
+   Delete full saved list
+---------------------------*/
+function deleteList() {
+  localStorage.removeItem("savedTodoList");
+  localStorage.removeItem("tasks");
+  localStorage.removeItem("isListSaved");
+
+  updateSaveButtonUI();
+  loadTasks();
+
+  alert("List deleted successfully");
 }

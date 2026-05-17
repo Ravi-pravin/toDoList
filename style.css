@@ -1,12 +1,18 @@
+/* Import Google Font (Nunito) */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
+/* -------------------------
+   Base styling
+--------------------------*/
 body {
   font-family: "Nunito", sans-serif;
   text-align: center;
   margin: 0;
 }
 
-/* Background section */
+/* -------------------------
+   Background section
+--------------------------*/
 .toDoSection {
   background-image: url("./assets/bg-image.jpg");
   background-position: center;
@@ -17,11 +23,9 @@ body {
   min-height: 95vh;
 }
 
-.todo-box h2 {
-  font-size: 30px;
-  font-weight: 700;
-}
-/* Container */
+/* -------------------------
+   Main todo container
+--------------------------*/
 .todo-box {
   width: 50%;
   margin: auto;
@@ -32,7 +36,15 @@ body {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Input section */
+/* Heading style */
+.todo-box h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* -------------------------
+   Input section
+--------------------------*/
 .input-section {
   display: flex;
   gap: 10px;
@@ -45,7 +57,9 @@ input {
   border-radius: 4px;
 }
 
-/* Buttons */
+/* -------------------------
+   Add button styling
+--------------------------*/
 .addButton {
   padding: 8px 12px;
   cursor: pointer;
@@ -56,21 +70,15 @@ input {
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.addButton:hover{
-    background-color: #baffff;
-    transform: scale(1.025);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+.addButton:hover {
+  background-color: #baffff;
+  transform: scale(1.025);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
-/* Bounce animation */
-@keyframes bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1.03); }
-}
-
-
-/* Task list */
+/* -------------------------
+   Task list section
+--------------------------*/
 ul {
   list-style: none;
   padding: 0;
@@ -81,7 +89,7 @@ li {
   padding: 12px;
 }
 
-/* Task row */
+/* Each task row design */
 .task-row {
   display: flex;
   justify-content: space-between;
@@ -93,38 +101,33 @@ li {
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.task-row:hover{
-    background-color: #baffff;
-    transform: scale(1.025);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+/* Hover effect for task */
+.task-row:hover {
+  background-color: #baffff;
+  transform: scale(1.025);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
-/* Bounce animation */
-@keyframes bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1.03); }
-}
-
+/* Serial number */
 .task-sno {
   width: 30px;
   text-align: left;
   font-weight: bold;
 }
 
-/* Task topic */
+/* Task text */
 .task-topic {
   flex: 1;
   text-align: left;
 }
 
-/* Action buttons */
+/* Action buttons container */
 .task-actions {
   display: flex;
   gap: 8px;
 }
 
-/* Common icon buttons */
+/* Common icon buttons (tick, cross, delete) */
 .tick-btn,
 .x-btn,
 .trash-btn {
@@ -148,5 +151,39 @@ li {
 
 .x-active {
   background: #b70012 !important;
+  color: white !important;
+}
+
+/* -------------------------
+   Bottom buttons section
+--------------------------*/
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Delete button */
+.deleteListBtn {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #8e0000;
+  color: white;
+  transition: all 0.35s ease;
+}
+
+.deleteListBtn:hover {
+  background-color: #cc0000;
+  transform: scale(1.03);
+}
+
+/* Saved button state (green after save) */
+.saved-state {
+  background-color: #28a745 !important;
   color: white !important;
 }
